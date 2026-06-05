@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>Admin Dashboard</h2>
+        <div>
+            <span id="welcome"></span>
+            <button onclick="logout()"> Logout</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Employee Management System</h1>
+        <form>
+            <input type="text" id="txtId" placeholder="Employee ID">
+
+            <input type="text" id="txtName" placeholder="Employee Name">
+
+            <input type="tel" id="txtPhone" placeholder="Phone Number">
+
+            <select id="txtDept">
+
+                <option value="">Select Department</option>
+                <option>HR</option>
+                <option>IT</option>
+                <option>Finance</option>
+                <option>Sales</option>
+                <option>Marketing</option>
+            </select>
+
+            <input type="date" id="txtDate">
+
+            <div id="btns">
+                <button type="button" onclick="funAdd()">Add Employee </button>
+
+                <button type="button" onclick="funUpdate()"> Update Employee </button>
+            </div>
+        </form>
+
+        <input type="text" id="searchBox" placeholder="Search by ID or Name" onkeyup="searchEmployee()">
+
+        <table border="1"></table>
+
+    </div>
+
+    <script src="auth.js"></script>
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>

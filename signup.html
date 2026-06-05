@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+
+```
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+
+```
+<div class="auth-box">
+
+    <h1>Create Account</h1>
+
+    <form id="signupForm">
+
+        <input type="text" id="txtName" placeholder="Full Name">
+        <input type="email" id="txtEmail" placeholder="Email">
+        <input type="tel" id="txtPhone" placeholder="Phone Number">
+        <input type="text" id="txtuser" placeholder="Username">
+        <input type="text" id="txtEmpId" placeholder="Employee ID">
+        <input type="password" id="txtPass" placeholder="Password">
+        <input type="password" id="txtConfirmPass" placeholder="Confirm Password">
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p>Already have an account? <a href="login.html">Login</a></p>
+</div>
+
+<script>
+
+    let form = document.getElementById("signupForm");
+
+    form.addEventListener("submit", funSign);
+
+    function funSign(e) {
+
+        e.preventDefault();
+
+        let Name =
+            document.getElementById("txtName").value.trim();
+
+        let Email =
+            document.getElementById("txtEmail").value.trim();
+
+        let Phone =
+            document.getElementById("txtPhone").value.trim();
+
+        let Username =
+            document.getElementById("txtuser").value.trim();
+
+        let EmpId =
+            "EMP" +
+            document.getElementById("txtEmpId").value.trim();
+
+        let Password =
+            document.getElementById("txtPass").value;
+
+        let ConfirmPassword =
+            document.getElementById("txtConfirmPass").value;
+
+        // Empty field validation
+        if (
+            Name === "" ||
+            Email === "" ||
+            Phone === "" ||
+            Username === "" ||
+            EmpId === "EMP" ||
+            Password === "" ||
+            ConfirmPassword === ""
+        ) {
+
+            alert("Please fill all fields");
+            return;
+        }
+
+        // Phone validation
+        let phonePattern =
+            /^[1-9][0-9]{9}$/;
+
+        if (!phonePattern.test(Phone)) {
+            alert("Enter valid 10 digit phone number");
+            return;
+        }
+
+        // Password match validation
+        if (Password !== ConfirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        // Strong password validation
+        let passwordPattern =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+        if (!passwordPattern.test(Password)) {
+            alert(
+                "Password must contain:\n" +
+                "- At least 8 characters\n" +
+                "- 1 uppercase letter\n" +
+                "- 1 lowercase letter\n" +
+                "- 1 number\n" +
+                "- 1 special character"
+            );
+            return;
+        }
+
+        let usersArray =
+            JSON.parse(localStorage.getItem("users")) || [];
+
+        // Duplicate validations
+        for (let i = 0; i < usersArray.length; i++) {
+
+            if (
+                usersArray[i].username.toLowerCase() ===
+                Username.toLowerCase()
+            ) {
+
+                alert("Username already exists");
+                return;
+            }
+
+            if (
+                usersArray[i].email.toLowerCase() ===
+                Email.toLowerCase()
+            ) {
+
+                alert("Email already registered");
+                return;
+            }
+
+            if (
+                usersArray[i].empId === EmpId
+            ) {
+
+                alert("Employee ID already registered");
+                return;
+            }
+        }
+
+        let user = {
+            name: Name,
+            email: Email,
+            phn: Phone,
+            username: Username,
+            password: Password,
+            role: "employee",
+            empId: EmpId
+
+        };
+
+        usersArray.push(user);
+
+        localStorage.setItem(
+            "users",
+            JSON.stringify(usersArray)
+        );
+
+        alert("Account Created Successfully!");
+
+        window.location.href = "login.html";
+    }
+
+</script>
+```
+
+</body>
+
+</html>
